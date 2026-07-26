@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Amisha Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090b12;
+      --surface: #111827;
+      --surface-alt: #0f172a;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #ec4899;
+      --accent-soft: #f9a8d4;
+      --card-shadow: 0 28px 80px rgba(7, 12, 34, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    header {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+    }
+
+    nav {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logo {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .logo-subtitle {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .menu {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 1.6rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+      padding: 84px 0 60px;
+    }
+
+    .hero-copy h1 {
+      margin: 0 0 24px;
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-copy p {
+      margin: 0 0 32px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .hero button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 16px 34px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 14px 40px rgba(124, 58, 237, 0.2);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .hero button:hover {
+      background: var(--accent-soft);
+      transform: translateY(-2px);
+    }
+
+    .hero-image {
+      position: relative;
+      background: linear-gradient(135deg, #111827 0%, #161e3a 100%);
+      border-radius: 32px;
+      min-height: 420px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-image.browser-frame {
+      position: relative;
+      border-radius: 32px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 30px 90px rgba(7, 12, 34, 0.32);
+      background: #111827;
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+      gap: 24px;
+    }
+
+    .browser-topbar {
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: rgba(15, 23, 42, 0.92);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(14px);
+      z-index: 2;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .window-controls .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+    }
+
+    .window-controls .red { background: #f87171; }
+    .window-controls .amber { background: #fbbf24; }
+    .window-controls .green { background: #34d399; }
+
+    .browser-title {
+      color: #c4b5fd;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .browser-frame img {
+      display: block;
+      width: 100%;
+      height: calc(100% - 58px);
+      object-fit: cover;
+      margin-top: 58px;
+    }
+
+    .screencap-caption {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: 22px;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .screencap-caption strong {
+      display: block;
+      color: #f8fafc;
+      margin-bottom: 6px;
+    }
+
+    .screencap-caption p {
+      margin: 0;
+      color: #94a3b8;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .screencap-caption span {
+      color: #ec4899;
+      font-size: 0.9rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .hero-card {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 18px 22px;
+      border-radius: 20px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+      color: #111827;
+    }
+
+    .hero-card p {
+      margin: 0 0 6px;
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .hero-card strong {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    section:nth-of-type(even) {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 28px;
+      color: var(--accent);
+      text-align: center;
+      letter-spacing: -0.03em;
+    }
+
+    .projects,
+    .skills-grid,
+    .testimonials-grid {
+      display: grid;
+      gap: 24px;
+      padding: 20px 0;
+    }
+
+    .projects {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .skill-card,
+    .project-card,
+    .testimonial-card {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .skill-card:hover,
+    .project-card:hover,
+    .testimonial-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 90px rgba(7, 12, 34, 0.35);
+    }
+
+    .project-icon,
+    .testimonial-icon {
+      width: 60px;
+      height: 60px;
+      display: grid;
+      place-items: center;
+      font-size: 1.8rem;
+      background: #1f2937;
+      border-radius: 18px;
+    }
+
+    .project-content h3,
+    .testimonial-card h3 {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+
+    .project-content p,
+    .testimonial-card p,
+    .skill-card p,
+    .about-text,
+    .contact-text {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .project-button,
+    .contact-button {
+      display: inline-block;
+      margin-top: 14px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 22px;
+      border-radius: 999px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .project-button:hover,
+    .contact-button:hover {
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+    }
+
+    .about-text,
+    .contact-text {
+      max-width: 720px;
+      margin: 0 auto;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .contact-button {
+      margin-top: 24px;
+      padding: 16px 32px;
+      font-weight: 700;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .skill-card h3 {
+      margin: 0 0 10px;
+      color: var(--accent);
+    }
+
+    .testimonial-icon {
+      margin-bottom: 18px;
+    }
+
+    .testimonial-card h3 {
+      margin-bottom: 12px;
+    }
+
+    .testimonial-card span {
+      display: inline-block;
+      margin-top: 16px;
+      color: #fff;
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding: 28px 0 40px;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 920px) {
+      .container {
+        padding: 32px 18px;
+      }
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 660px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .menu.show {
+        display: flex;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero {
+        gap: 28px;
+      }
+
+      .hero-copy {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        Amisha
+        <span class="logo-subtitle">Web Developer</span>
+      </div>
+      <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
+      <div class="menu">
+        <a href="#work">Work</a>
+        <a href="#skills">Skills</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Hi, I'm Amisha</h1>
+        <p>I build professional websites for small businesses that look modern, load fast, and help customers trust your brand.</p>
+        <button onclick="window.location='#work'">View My Work</button>
+      </div>
+      <div class="hero-image browser-frame">
+        <div class="browser-topbar">
+          <div class="window-controls">
+            <span class="dot red"></span>
+            <span class="dot amber"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="browser-title">amisha.dev / featured</div>
+        </div>
+
+        <img src="salon-previehttps://www.bing.com/images/search?q=salon+website+mockups&FORM=IRBPRSw.webp" alt="Website screenshot">
+
+        <div class="screencap-caption">
+          <div>
+            <strong>Salon Website</strong>
+            <p>Modern landing page design with clear service sections and a booking call-to-action.</p>
+          </div>
+          <span>Live preview</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="section-title">My Work</div>
+      <div class="projects">
+        <div class="project-card">
+          <div class="project-icon">💻</div>
+          <div class="project-content">
+            <h3>Salon Website</h3>
+            <p>A modern website for a local salon with service details, booking info, and client testimonials.</p>
+            <a class="project-button" href="#">View Project</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">☕</div>
+          <div class="project-content">
+            <h3>Cafe Landing Page</h3>
+            <p>A clean, mobile-first page that highlights the menu, location, and opening hours.</p>
+            <a class="project-button" href="#">View Project</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🎨</div>
+          <div class="project-content">
+            <h3>Portfolio Refresh</h3>
+            <p>An updated portfolio design with a bright layout, easy contact options, and strong branding.</p>
+            <a class="project-button" href="#">View Project</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-title">Skills</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>Web Design</h3>
+          <p>Clean layouts, responsive visuals, and strong branding.</p>
+        </div>
+        <div class="skill-card">
+          <h3>HTML & CSS</h3>
+          <p>Semantic markup, modern styling, and mobile-first layouts.</p>
+        </div>
+        <div class="skill-card">
+          <h3>Responsive Sites</h3>
+          <p>Works well on phones, tablets, and desktop screens.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials">
+      <div class="section-title">Testimonials</div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-icon">🌟</div>
+          <h3>Business Owner</h3>
+          <p>"Amisha turned our website into a beautiful and fast experience. Our customers now book more easily."</p>
+          <span>— Local Salon</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-icon">🌟</div>
+          <h3>Cafe Manager</h3>
+          <p>"The new landing page looks amazing and works great on mobile. It helped us attract more visitors."</p>
+          <span>— Coffee Shop</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-icon">🌟</div>
+          <h3>Studio Owner</h3>
+          <p>"Fast communication, clean design, and a polished final website. Highly recommended."</p>
+          <span>— Fitness Studio</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-title">About Me</div>
+      <p class="about-text">I'm a passionate web developer with experience in creating responsive and user-friendly websites. I enjoy turning ideas into reality through coding and design. When I'[...]
+    </section>
+
+    <section id="contact">
+      <div class="section-title">Contact</div>
+      <p class="contact-text">
+        Email: <a href="mailto:amishajade309@gmail.com">amishajade309@gmail.com</a>
+      </p>
+      <a class="contact-button" href="mailto:amishajade309@gmail.com">Email Me</a>
+    </section>
+  </main>
+
+  <footer>
+    Built by Amisha • Modern portfolio design
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.menu');
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>
